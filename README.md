@@ -43,4 +43,10 @@ App = React.createClass({
 });
 ```
 
-Please test and find issues. Pull requests, welcome. 
+Please test and find issues. Pull requests, welcome. To add the package that contains the `TrackerReact` mixin, run:
+
+```
+meteor add ultimatejs:tracker-react
+``` 
+
+To learn more about the `TrackerReact` mixin package, checkout: https://github.com/ultimatejs/tracker-react
