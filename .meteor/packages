@@ -21,6 +21,6 @@ insecure                # Allow all DB writes from clients (for prototyping)
 
 react
 underscore
-gandev:server-eval
+
 
 ultimatejs:tracker-react
