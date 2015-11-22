@@ -49,4 +49,4 @@ Please test and find issues. Pull requests, welcome. To add the `TrackerReact` m
 meteor add ultimatejs:tracker-react
 ``` 
 
-ADDITIONAL INFO: `TrackerReact` was birthed out of [**Sideburns**](https://github.com/ultimatejs/tracker-react). The goal of `TrackerReact` is to solved dynamic runtime needs that can't be solved at transpilation time. To learn more about it, checkout: https://github.com/ultimatejs/tracker-react
+ADDITIONAL INFO: `TrackerReact` was birthed out of [**Sideburns**](https://github.com/timbrandin/blaze-react). The goal of `TrackerReact` is to solved dynamic runtime needs that can't be solved at transpilation time. To learn more about it, checkout: https://github.com/ultimatejs/tracker-react
