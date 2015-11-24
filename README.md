@@ -14,28 +14,27 @@ Here is a simplified example of the noteworthy code in this repo (check `app.jsx
 App = React.createClass({
     mixins: [TrackerReact],
 
-    //automatically reactive helpers, no need for `getMeteorData`!
-	CurrenTaskTitle() {
-        return Session.get('currentTaskTitle') || 'n/a';
-    },
-    getTasks() {
-        return Tasks.find({}).fetch();
+	//tracker-based reactivity in action, no need for `getMeteorData`!
+    tasks() {
+        return Tasks.find({}).fetch(); //fetch must be called to trigger reactivity
     },
 	
-    //underscore prevents method from being reactive
-	_renderTasks() {
-		return this.getTasks().map((task) => {
-			return <Task key={task._id} task={task} />;
-		});
-	},
+	
+	//state-based reactivity working in conjunection with tracker-based reactivity.
+	//track render autoruns are kept up to date!
+    title() {
+		return this.state && this.state.title ? `(${this.state.title})` : ``;
+    },
 	
 	render() {
 		return (
 			<di>
-				<h2>{this.getCurrenTaskTitle()}</h2>
+				<h2>{this.title()}</h2>
 
 				<ul>
-				  	  {this._renderTasks()}
+				  	  {this.tasks().map((task) => {
+						  return <Task key={task._id} task={task} />;
+					  })}
 				</ul>
 			</div>
 		);

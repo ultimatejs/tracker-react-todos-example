@@ -1,4 +1,7 @@
 Task = React.createClass({ //not every component needs to make use of `TrackerReact` directly
+	componentWillUpdate() {
+		console.log('TASK - componentWillUpdate')
+	},
 	taskInfo() {
         let task = this.props.task.text;
         let note = this.state && this.state.note;
@@ -14,6 +17,8 @@ Task = React.createClass({ //not every component needs to make use of `TrackerRe
         Session.set('currentTaskTitle', this.props.task.text); //trigger a reactive helper method in app.jsx
     },
 	render() {
+		console.log("TASK - RENDER");
+		
 		return (
 			<li>
 				{this.taskInfo()}

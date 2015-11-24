@@ -1,54 +1,66 @@
 App = React.createClass({
-    mixins: [TrackerReact],
+	mixins: [TrackerReact],
+	
+	componentWillMount() {
+		window.MAIN = this; //use `MAIN` from console to perform various tests
+	},
+	componentWillUpdate() {
+		console.log('APP - componentWillUpdate')
+	},
+    
 
-    //automatically reactive helpers, no need for `getMeteorData`!
+	//tracker-based reactivity in action, no need for `getMeteorData`!
+    currenTaskTitle() {
+        return Session.get('currentTaskTitle') || 'n/a'; //session var set by child component!
+    },
+    tasks() {
+        return Tasks.find({}).fetch(); //fetch must be called to trigger reactivity
+    },
+	
+	
+	//state-based reactivity working in conjunection with tracker-based reactivity. 
+	//track render autoruns are kept up to date!
     title() {
-        return Session.get('title') ? ' (' + Session.get('title') + ')' : '';
+		return this.state && this.state.title ? `(${this.state.title})` : ``;
     },
-    getCurrenTaskTitle() {
-        return Session.get('currentTaskTitle') || 'n/a';
-    },
-    getTasks() {
-        return Tasks.find({}).fetch();
-    },
+	
 
-    //underscore prevents method from being reactive
 	_renderTasks() {
-		return this.getTasks().map((task) => {
+		if(!this.state || !this.state.title) return <li>ADD A TITLE TO SEE TO DO LIST</li>;
+		
+		return this.tasks().map((task) => {
 			return <Task key={task._id} task={task} />;
 		});
 	},
 
     //events are also blocked from being reactive; for now we put them in a map return from a method named `events` 
-    events() {
-        return {
-            editTitle: function() {
-                let title = prompt('Enter a title for this to do list');
-                Session.set('title', title);
-            },
-            addTask: function() {
-                Tasks.insert({text: prompt('Enter the title of a task buddy')});
-            }
-        }
+    editTitle: function() {
+        let title = prompt('Enter a title for this to do list');
+        this.setState({title: title});
+    },
+    addTask: function() {
+        Tasks.insert({text: prompt('Enter the title of a task buddy')});
     },
 
 	
 	render() {
+		console.log('APP - RENDER');
+		
 		return (
 			<div className="container">
 				<header>
-					<h1>
-						Todo List {this.title()}
+					<h1> 
+						Todo List {this.title()} 
 						<span style={{color: 'blue', fontStyle: 'italic', cursor: 'pointer'}} onClick={this.editTitle}> edit title</span>
 					</h1> 
 
-					<h2>current task: <i>{this.getCurrenTaskTitle()}</i></h2>
+					<h2>current task: <i>{this.currenTaskTitle()}</i></h2>
 
 					<button onClick={this.addTask}>ADD TASK</button>
 				</header>
 
 				<ul>
-				  	  {this._renderTasks()}
+					{this._renderTasks()}
 				</ul>
 			</div>
 		);
