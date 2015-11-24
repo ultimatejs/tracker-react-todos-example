@@ -1,3 +1,5 @@
+outerVar = new ReactiveVar('outer');
+
 App = React.createClass({
 	mixins: [TrackerReact],
 	
@@ -14,6 +16,7 @@ App = React.createClass({
         return Session.get('currentTaskTitle') || 'n/a'; //session var set by child component!
     },
     tasks() {
+		if(this.state && this.state.limit) return Tasks.find({}, {limit: this.state.limit}).fetch()
         return Tasks.find({}).fetch(); //fetch must be called to trigger reactivity
     },
 	
@@ -50,7 +53,7 @@ App = React.createClass({
 			<div className="container">
 				<header>
 					<h1> 
-						Todo List {this.title()} 
+						Todo List {this.title()} -- extra: {outerVar.get()}
 						<span style={{color: 'blue', fontStyle: 'italic', cursor: 'pointer'}} onClick={this.editTitle}> edit title</span>
 					</h1> 
 
