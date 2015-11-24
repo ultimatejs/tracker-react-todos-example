@@ -1,5 +1,3 @@
-outerVar = new ReactiveVar('outer');
-
 App = React.createClass({
 	mixins: [TrackerReact],
 	
@@ -72,3 +70,4 @@ App = React.createClass({
 
 
 Tasks = new Mongo.Collection('tasks');
+outerVar = new ReactiveVar('outer'); //tes tto show that outer scope variables are reactive
