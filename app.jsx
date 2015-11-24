@@ -51,7 +51,7 @@ App = React.createClass({
 			<div className="container">
 				<header>
 					<h1> 
-						Todo List {this.title()} -- extra: {outerVar.get()}
+						Todo List {this.title()} - extra: {outerVar.get()}
 						<span style={{color: 'blue', fontStyle: 'italic', cursor: 'pointer'}} onClick={this.editTitle}> edit title</span>
 					</h1> 
 
